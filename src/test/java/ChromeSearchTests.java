@@ -16,40 +16,55 @@ public class ChromeSearchTests {
     WebDriver driver;
     @Test
     public void testYahooSearch() {
+        //yahoo search engine has a 'search button' which is clickable
         System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver/windows32/chromedriver.exe");
+
         openBrowser();
         navigateToYahoo();
-        typeYahooQuery();
+        typeAndSubmitYahooQuery();
+        //submitYahooQuery();
+        verifyYahooResultPage();
     }
 
     @Test
     public void testGoogleSearch() {
+
+        //google search engine does not have 'search button'
+        //use
         System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver/windows32/chromedriver.exe");
         openBrowser();
         navigateToGoogle();
-        typeGoogleQuery();
-        submitGoogleQuery();
+        typeAndSubmitGoogleQuery();
 
     }
 
-    private void submitGoogleQuery() {
+    private void verifyYahooResultPage() {
+        String textXPath = "Portnov Computer School - Software";
+        //String linkXPath = "//*[text(), 'Portnov Computer School - Software Testing and Software QA ...')]";
+        String linkXPath = "//a[@class=' ac-algo fz-l ac-21th lh-24']";
 
+        //WebElement findAnchor = driver.findElement(By.partialLinkText("Port"));
+        WebElement findAnchor = driver.findElement(By.xpath(linkXPath));
+        String textMyOne = findAnchor.getText();
+        System.out.println(textMyOne);
     }
 
-    private void typeYahooQuery() {
+     private void typeAndSubmitYahooQuery() {
         String searchFieldXPath = "//input[@name='p']";
         String whatToFind = "Portnov computer school";
 
         WebElement searchField = driver.findElement(By.xpath(searchFieldXPath));
         searchField.sendKeys(whatToFind);
+        searchField.submit();
     }
 
-    private void typeGoogleQuery() {
+    private void typeAndSubmitGoogleQuery() {
         String searchFieldsXPath = "//input[@name='q']";
         String whatToFind = "Portnov computer school";
 
         WebElement searchField = driver.findElement(By.xpath(searchFieldsXPath));
         searchField.sendKeys(whatToFind);
+        searchField.submit();
     }
 
     private void navigateToGoogle() {
