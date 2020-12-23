@@ -23,9 +23,7 @@ public class ChromeSearchTests {
         //yahoo search engine has a 'search button' which is clickable
         //but used submit method of WebElement
 
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver/windows32/chromedriver.exe");
-
-        openChromeBrowser();
+        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver/windows32/chromedriver.exe");        openChromeBrowser();
         navigateToSearchEngine("http://yahoo.com");
         typeAndSubmitQuery("//input[@name='p']", "Portnov computer school");
         boolean linkIsFound = verifyResultPage("//a[contains(text(), 'Portnov Computer School - Software')]");
